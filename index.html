@@ -1,24 +1,159 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Dashboard de Performance Comercial | GSP</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
-</body>
+<div id="app">
 
-<script src="js/script.js"></script>
+    <!-- ========================= -->
+    <!-- TELA DE ABERTURA -->
+    <!-- ========================= -->
 
-</html>
+    <section id="home">
+
+        <div class="overlay"></div>
+
+        <div class="home-content">
+
+            <img src="assets/logo-tecfil.png"
+                 class="logo"
+                 alt="Tecfil">
+
+            <h1>
+
+                Dashboard de Performance Comercial
+
+            </h1>
+
+            <h2>
+
+                Relatório Executivo Interativo
+
+            </h2>
+
+            <p>
+
+                Maio • Junho | 2026
+
+            </p>
+
+            <span>
+
+                Indicadores que apoiam decisões.
+
+            </span>
+
+            <button id="btnEntrar">
+
+                Entrar no Dashboard
+
+            </button>
+
+        </div>
+
+    </section>
+        <!-- ========================= -->
+    <!-- PAINEL PRINCIPAL -->
+    <!-- ========================= -->
+
+    <main id="dashboard" class="dashboard oculto">
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <span class="brand-name">TECFIL</span>
+                <small>Performance Comercial</small>
+            </div>
+
+            <nav class="menu">
+
+                <button class="menu-item ativo" data-section="visao-geral">
+                    <span>▦</span>
+                    Visão Geral
+                </button>
+
+                <button class="menu-item" data-section="relacionamento">
+                    <span>◎</span>
+                    Relacionamento
+                </button>
+
+                <button class="menu-item" data-section="pesquisas">
+                    <span>▤</span>
+                    Pesquisas
+                </button>
+
+                <button class="menu-item" data-section="campanhas">
+                    <span>◈</span>
+                    Campanhas
+                </button>
+
+                <button class="menu-item" data-section="resultados">
+                    <span>▥</span>
+                    Resultados
+                </button>
+
+                <button class="menu-item" data-section="evidencias">
+                    <span>▧</span>
+                    Evidências
+                </button>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <strong>Geysa Sechi Poisl</strong>
+                <span>Promotoria Comercial</span>
+
+            </div>
+
+        </aside>
+
+        <section class="main-content">
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1>Dashboard Executivo</h1>
+
+                    <p>
+                        Indicadores que apoiam decisões.
+                    </p>
+
+                </div>
+
+                <div class="periodo-card">
+
+                    <span>Período analisado</span>
+
+                    <strong>Maio • Junho | 2026</strong>
+
+                </div>
+
+            </header>
