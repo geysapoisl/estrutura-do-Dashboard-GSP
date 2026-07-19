@@ -1,250 +1,180 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+ <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard de Performance Comercial | GSP</title>
 
-<head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <div id="app">
 
-    <title>Dashboard de Performance Comercial | GSP</title>
+        <section id="home">
+            <div class="overlay"></div>
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+            <div class="home-content">
+                <h1>Dashboard de Performance Comercial</h1>
+                <h2>Relatório Executivo Interativo</h2>
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+                <p>Maio • Junho | 2026</p>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+                <button id="btnEntrar">
+                    Entrar no Dashboard
+                </button>
+            </div>
+        </section>
 
-    <link rel="stylesheet"
-          href="css/style.css">
+        <main id="dashboard">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <!-- Continuação na Parte 2 -->
 
-</head>
+        </main>
 
-<body>
+    </div>
 
-<div id="app">
+    <script src="js/script.js"></script>
 
-    <!-- ========================= -->
-    <!-- TELA DE ABERTURA -->
-    <!-- ========================= -->
+    </body>
+    </html>
+      <aside class="sidebar">
 
-    <section id="home">
+        <div class="brand">
+            <h2>TECFIL</h2>
+            <span>Performance Comercial</span>
+        </div>
 
-        <div class="overlay"></div>
+        <nav class="menu">
+            <a href="#">Visão Geral</a>
+            <a href="#">Visitas</a>
+            <a href="#">Pesquisas</a>
+            <a href="#">Campanhas</a>
+            <a href="#">Clientes</a>
+            <a href="#">Capacitações</a>
+        </nav>
 
-        <div class="home-content">
+    </aside>
 
-            <img src="assets/logo-tecfil.png"
-                 class="logo"
-                 alt="Tecfil">
+    <section class="main-content">
 
-            <h1>
+        <header class="topbar">
+            <h1>Dashboard Executivo</h1>
+            <p>Indicadores que apoiam decisões.</p>
+        </header>
 
-                Dashboard de Performance Comercial
+        <section class="kpi-grid">
 
-            </h1>
+            <div class="kpi-card">
+                <h3>Visitas</h3>
+                <strong>152</strong>
+            </div>
 
-            <h2>
+            <div class="kpi-card">
+                <h3>Pesquisas</h3>
+                <strong>23</strong>
+            </div>
 
-                Relatório Executivo Interativo
+            <div class="kpi-card">
+                <h3>Campanhas</h3>
+                <strong>41</strong>
+            </div>
 
-            </h2>
+            <div class="kpi-card">
+                <h3>Peças Alcançadas</h3>
+                <strong>15.631</strong>
+            </div>
 
-            <p>
+            <div class="kpi-card">
+                <h3>Novos Clientes</h3>
+                <strong>19</strong>
+            </div>
 
-                Maio • Junho | 2026
+            <div class="kpi-card">
+                <h3>Capacitações</h3>
+                <strong>2</strong>
+            </div>
 
-            </p>
+        </section>
+         <section class="charts-grid">
 
-            <span>
+        <article class="chart-card">
+            <div class="card-header">
+                <div>
+                    <span class="eyebrow">Distribuição</span>
+                    <h2>Peças alcançadas por canal</h2>
+                </div>
+            </div>
 
-                Indicadores que apoiam decisões.
+            <div class="chart-wrapper">
+                <canvas id="graficoPecas"></canvas>
+            </div>
+        </article>
 
-            </span>
+        <article class="chart-card">
+            <div class="card-header">
+                <div>
+                    <span class="eyebrow">Comparativo</span>
+                    <h2>Resultados do período</h2>
+                </div>
+            </div>
 
-            <button id="btnEntrar">
+            <div class="chart-wrapper">
+                <canvas id="graficoResultados"></canvas>
+            </div>
+        </article>
 
-                Entrar no Dashboard
+    </section>
 
-            </button>
+    <section class="executive-summary">
+
+        <div>
+            <span class="eyebrow">Síntese do período</span>
+            <h2>Resumo Executivo</h2>
+        </div>
+
+        <p>
+            Durante os meses de maio e junho de 2026, foram realizadas
+            ações comerciais voltadas ao fortalecimento da marca Tecfil.
+            O período contemplou visitas técnicas, pesquisas, campanhas,
+            prospecção de novos clientes e capacitações, alcançando
+            15.631 peças monitoradas entre distribuidores e varejo.
+        </p>
+
+        <div class="summary-details">
+
+            <div class="summary-item">
+                <span>Distribuidores</span>
+                <strong>10.504 peças</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Varejo</span>
+                <strong>5.127 peças</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Participantes em capacitações</span>
+                <strong>Aproximadamente 80</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Fonte dos dados</span>
+                <strong>Sistema Auvo</strong>
+            </div>
 
         </div>
 
     </section>
-        <!-- ========================= -->
-    <!-- PAINEL PRINCIPAL -->
-    <!-- ========================= -->
 
-    <main id="dashboard" class="dashboard oculto">
+    <footer class="dashboard-footer">
+        <span>Dashboard de Performance Comercial • GSP | 2026</span>
+        <span>Geysa Sechi Poisl</span>
+    </footer>
 
-        <aside class="sidebar">
-
-            <div class="brand">
-                <span class="brand-name">TECFIL</span>
-                <small>Performance Comercial</small>
-            </div>
-
-            <nav class="menu">
-
-                <button class="menu-item ativo" data-section="visao-geral">
-                    <span>▦</span>
-                    Visão Geral
-                </button>
-
-                <button class="menu-item" data-section="relacionamento">
-                    <span>◎</span>
-                    Relacionamento
-                </button>
-
-                <button class="menu-item" data-section="pesquisas">
-                    <span>▤</span>
-                    Pesquisas
-                </button>
-
-                <button class="menu-item" data-section="campanhas">
-                    <span>◈</span>
-                    Campanhas
-                </button>
-
-                <button class="menu-item" data-section="resultados">
-                    <span>▥</span>
-                    Resultados
-                </button>
-
-                <button class="menu-item" data-section="evidencias">
-                    <span>▧</span>
-                    Evidências
-                </button>
-
-            </nav>
-
-            <div class="sidebar-footer">
-
-                <strong>Geysa Sechi Poisl</strong>
-                <span>Promotoria Comercial</span>
-
-            </div>
-
-        </aside>
-
-        <section class="main-content">
-
-            <header class="topbar">
-
-                <div>
-
-                    <h1>Dashboard Executivo</h1>
-
-                    <p>
-                        Indicadores que apoiam decisões.
-                    </p>
-
-                </div>
-
-                <div class="periodo-card">
-
-                    <span>Período analisado</span>
-
-                    <strong>Maio • Junho | 2026</strong>
-
-                </div>
-
-            </header>
-            <!-- ========================= -->
-            <!-- VISÃO GERAL -->
-            <!-- ========================= -->
-
-            <section id="visao-geral" class="content-section ativa">
-
-                <div class="kpi-grid">
-
-                    <article class="kpi-card destaque">
-                        <span class="kpi-label">Peças alcançadas</span>
-                        <strong class="kpi-value" data-target="15631">15.631</strong>
-                        <small>Resultado total do período</small>
-                    </article>
-
-                    <article class="kpi-card">
-                        <span class="kpi-label">Visitas</span>
-                        <strong class="kpi-value" data-target="152">152</strong>
-                        <small>89 em maio • 63 em junho</small>
-                    </article>
-
-                    <article class="kpi-card">
-                        <span class="kpi-label">Pesquisas</span>
-                        <strong class="kpi-value" data-target="23">23</strong>
-                        <small>Monitoramento do posicionamento da marca</small>
-                    </article>
-
-                    <article class="kpi-card">
-                        <span class="kpi-label">Campanhas</span>
-                        <strong class="kpi-value" data-target="41">41</strong>
-                        <small>23 em maio • 18 em junho</small>
-                    </article>
-
-                    <article class="kpi-card">
-                        <span class="kpi-label">Novos clientes</span>
-                        <strong class="kpi-value" data-target="19">19</strong>
-                        <small>Clientes novos visitados</small>
-                    </article>
-
-                    <article class="kpi-card">
-                        <span class="kpi-label">Capacitações</span>
-                        <strong class="kpi-value" data-target="2">2</strong>
-                        <small>Aproximadamente 80 participantes</small>
-                    </article>
-
-                </div>
-                <div class="charts-grid">
-
-                    <article class="chart-card">
-
-                        <h3>Distribuição de Peças Alcançadas</h3>
-
-                        <canvas id="graficoPecas"></canvas>
-
-                    </article>
-
-                    <article class="chart-card">
-
-                        <h3>Resultados do Período</h3>
-
-                        <canvas id="graficoResultados"></canvas>
-
-                    </article>
-
-                </div>                <section class="observacoes">
-
-                    <h2>Resumo Executivo</h2>
-
-                    <p>
-                        Durante os meses de maio e junho foram realizadas
-                        ações comerciais voltadas ao fortalecimento da marca
-                        Tecfil, contemplando visitas técnicas, pesquisas,
-                        campanhas promocionais, prospecção de novos clientes
-                        e capacitações, alcançando mais de 15 mil peças
-                        monitoradas entre distribuidores e varejo.
-                    </p>
-
-                </section>
-
-            </section>
-
-        </section>
-
-    </main>
-
-</div>
-
-<script src="js/script.js"></script>
-
-</body>
-
-</html>
+</section>
