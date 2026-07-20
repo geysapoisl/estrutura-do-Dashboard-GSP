@@ -12,9 +12,41 @@
 
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
 
 <body>
+    <div class="splash-screen" id="splashScreen">
+    <div class="splash-content">
+
+        <div class="splash-logo">
+    <img
+        src="assets/img/tecfil-logo.svg"
+        alt="Tecfil"
+        class="splash-logo-image"
+    >
+
+    <span>Performance Comercial</span>
+</div>
+
+        <div class="splash-divider"></div>
+
+        <h1>Dashboard de Performance Comercial</h1>
+        <p>GSP | Maio • Junho 2026</p>
+
+        <div class="splash-loader" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="splash-credit">
+            Desenvolvido por
+            <strong>Geysa Sechi Poisl</strong>
+        </div>
+
+    </div>
+</div>
 <div id="app">
 
     <!-- TELA INICIAL -->
@@ -39,7 +71,13 @@
         <aside class="sidebar">
             <div class="brand">
                 <h2>TECFIL</h2>
-                <span>Performance Comercial</span>
+                <h1>Dashboard Executivo</h1>
+
+<p>Performance Comercial</p>
+
+<p class="periodo">
+    Maio • Junho 2026
+</p>
             </div>
 
             <nav class="menu" aria-label="Navegação principal">
@@ -95,7 +133,7 @@
                         <div class="kpi-icon">📋</div>
                         <div>
                             <h3>Pesquisas</h3>
-                            <strong class="kpi-number" data-target="23">0</strong>
+<strong class="kpi-number" data-target="24">24</strong>
                         </div>
                     </article>
 
@@ -103,7 +141,7 @@
                         <div class="kpi-icon">📣</div>
                         <div>
                             <h3>Campanhas</h3>
-                            <strong class="kpi-number" data-target="41">0</strong>
+                            <strong class="kpi-number" data-target="51">0</strong>
                         </div>
                     </article>
 
@@ -194,47 +232,83 @@
                 </section>
             </section>
 
-            <!-- 2. VISITAS -->
-            <section class="page" id="visitas" data-title="Visitas">
-                <header class="topbar">
-                    <div class="topbar-title">
-                        <span class="eyebrow">Atuação em campo</span>
-                        <h1>Visitas</h1>
-                        <p>Acompanhamento das visitas realizadas no período.</p>
-                    </div>
+           <!-- 2. VISITAS -->
+<section class="page" id="visitas" data-title="Visitas">
+    <header class="topbar">
+        <div class="topbar-title">
+            <span class="eyebrow">Atuação em campo</span>
+            <h1>Visitas</h1>
+            <p>Acompanhamento das visitas realizadas no período.</p>
+        </div>
 
-                    <div class="topbar-info">
-                        <div class="info-item">
-                            <span>Período analisado</span>
-                            <strong>Maio • Junho | 2026</strong>
-                        </div>
-                    </div>
-                </header>
+        <div class="topbar-info">
+            <div class="info-item">
+                <span>Período analisado</span>
+                <strong>Maio • Junho | 2026</strong>
+            </div>
+        </div>
+    </header>
 
-                <section class="kpi-grid page-kpis">
-                    <article class="kpi-card kpi-destaque">
-                        <div class="kpi-icon">👣</div>
-                        <div>
-                            <h3>Total de Visitas</h3>
-                            <strong class="kpi-number" data-target="152">0</strong>
-                        </div>
-                    </article>
-                </section>
+    <section class="kpi-grid visitas-kpis">
+        <article class="kpi-card kpi-visitas">
+            <div class="kpi-icon">👣</div>
+            <div>
+                <h3>Total de Visitas</h3>
+                <strong class="kpi-number" data-target="152">0</strong>
+            </div>
+        </article>
 
-                <section class="charts-grid charts-grid-single">
-                    <article class="chart-card">
-                        <div class="card-header">
-                            <span class="eyebrow">Evolução mensal</span>
-                            <h2>Visitas realizadas por mês</h2>
-                        </div>
+        <article class="kpi-card kpi-distribuidores">
+    <div class="kpi-icon">🏢</div>
+    <div>
+        <h3>Distribuidores</h3>
+        <strong class="kpi-number" data-target="38">0</strong>
+        <p class="kpi-detail">Maio: 20 | Junho: 18</p>
+    </div>
+</article>
 
-                        <div class="chart-wrapper">
-                            <canvas id="graficoVisitasMensais"></canvas>
-                        </div>
-                    </article>
-                </section>
-            </section>
+        <article class="kpi-card kpi-varejo">
+    <div class="kpi-icon">🛒</div>
+    <div>
+        <h3>Varejo</h3>
+        <strong class="kpi-number" data-target="114">0</strong>
+        <p class="kpi-detail">Maio: 69 | Junho: 45</p>
+    </div>
+</article>
 
+        <article class="kpi-card kpi-novos-clientes">
+            <div class="kpi-icon">🤝</div>
+            <div>
+                <h3>Novos Clientes</h3>
+                <strong class="kpi-number" data-target="19">0</strong>
+            </div>
+        </article>
+    </section>
+
+    <section class="charts-grid">
+        <article class="chart-card">
+            <div class="card-header">
+                <span class="eyebrow">Evolução mensal</span>
+                <h2>Visitas realizadas por mês</h2>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="graficoVisitasMensais"></canvas>
+            </div>
+        </article>
+
+        <article class="chart-card">
+            <div class="card-header">
+                <span class="eyebrow">Distribuição</span>
+                <h2>Visitas por canal</h2>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="graficoVisitasCanal"></canvas>
+            </div>
+        </article>
+    </section>
+</section>
             <!-- 3. PESQUISAS -->
             <section class="page" id="pesquisas" data-title="Pesquisas">
                 <header class="topbar">
@@ -252,15 +326,33 @@
                     </div>
                 </header>
 
-                <section class="kpi-grid page-kpis">
-                    <article class="kpi-card kpi-destaque">
-                        <div class="kpi-icon">📋</div>
-                        <div>
-                            <h3>Total de Pesquisas</h3>
-                            <strong class="kpi-number" data-target="23">0</strong>
-                        </div>
-                    </article>
-                </section>
+               <section class="kpi-grid page-kpis">
+
+    <article class="kpi-card kpi-pesquisas">
+        <div class="kpi-icon">📋</div>
+        <div>
+            <h3>Total de Pesquisas</h3>
+            <strong class="kpi-number" data-target="24">0</strong>
+        </div>
+    </article>
+
+    <article class="kpi-card kpi-tecfil">
+        <div class="kpi-icon">🔵</div>
+        <div>
+            <h3>Participação média da Tecfil nos PDVs atendidos</h3>
+            <strong>43,3%</strong>
+        </div>
+    </article>
+
+    <article class="kpi-card kpi-estabelecimentos">
+        <div class="kpi-icon">🏪</div>
+        <div>
+            <h3>Estabelecimentos pesquisados</h3>
+            <strong>24 PDVs</strong>
+        </div>
+    </article>
+
+</section>
 
                 <section class="charts-grid">
                     <article class="chart-card">
@@ -287,146 +379,394 @@
                 </section>
             </section>
 
-            <!-- 4. CAMPANHAS -->
-            <section class="page" id="campanhas" data-title="Campanhas">
-                <header class="topbar">
-                    <div class="topbar-title">
-                        <span class="eyebrow">Principal resultado da apresentação</span>
-                        <h1>Campanhas</h1>
-                        <p>Resultados e impacto das ações promocionais.</p>
-                    </div>
+<!-- 4. CAMPANHAS -->
+<section class="page" id="campanhas" data-title="Campanhas">
+    <header class="topbar">
+        <div class="topbar-title">
+    <h1>Campanhas</h1>
+    <p>Volume de ações e resultado das campanhas comerciais.</p>
+</div>
 
-                    <div class="topbar-info">
-                        <div class="info-item">
-                            <span>Período analisado</span>
-                            <strong>Maio • Junho | 2026</strong>
-                        </div>
-                    </div>
-                </header>
+<div class="topbar-info">
+    <div class="info-item">
+        <span>Período analisado</span>
+        <strong>Maio • Junho | 2026</strong>
+    </div>
+</div>
+    </header>
 
-                <section class="campaign-highlight">
-                    <article class="kpi-card kpi-hero">
-                        <div class="kpi-icon">📦</div>
-                        <div>
-                            <h3>Total de Peças Alcançadas</h3>
-                            <strong class="kpi-number" data-target="15631">0</strong>
-                            <span>peças</span>
-                        </div>
-                    </article>
-                </section>
+    <section class="kpi-grid campaign-kpis">
+        <article class="kpi-card">
+            <div class="kpi-icon">📣</div>
+            <div>
+                <h3>Campanhas Abertas</h3>
+                <strong class="kpi-number" data-target="51">0</strong>
+            </div>
+        </article>
 
-                <section class="kpi-grid campaign-kpis">
-                    <article class="kpi-card">
-                        <div class="kpi-icon">📣</div>
-                        <div>
-                            <h3>Campanhas Realizadas</h3>
-                            <strong class="kpi-number" data-target="41">0</strong>
-                        </div>
-                    </article>
+        <article class="kpi-card">
+            <div class="kpi-icon">🧾</div>
+            <div>
+                <h3>Filtros NF “Apadrinhamento”</h3>
+                <strong class="kpi-number" data-target="30">0</strong>
+            </div>
+        </article>
 
-                    <article class="kpi-card">
-                        <div class="kpi-icon">🏆</div>
-                        <div>
-                            <h3>Rodadas de Prêmios</h3>
-                            <strong id="totalRodadasPremio">—</strong>
-                        </div>
-                    </article>
+        <article class="kpi-card">
+            <div class="kpi-icon">🏆</div>
+            <div>
+                <h3>Rodadas de Prêmios</h3>
+                <strong class="kpi-number" data-target="14">0</strong>
+            </div>
+        </article>
 
-                    <article class="kpi-card">
-                        <div class="kpi-icon">🧾</div>
-                        <div>
-                            <h3>Campanhas por Notas</h3>
-                            <strong id="totalCampanhasNotas">—</strong>
-                        </div>
-                    </article>
+        <article class="kpi-card">
+            <div class="kpi-icon">🏪</div>
+            <div>
+                <h3>Distribuidores</h3>
+                <strong class="kpi-number" data-target="7">0</strong>
+            </div>
+        </article>
+    </section>
 
-                    <article class="kpi-card">
-                        <div class="kpi-icon">🏪</div>
-                        <div>
-                            <h3>Distribuidores</h3>
-                            <strong id="totalCampanhasDistribuidores">—</strong>
-                        </div>
-                    </article>
+    <section class="charts-grid campaign-results-grid">
+        <article class="chart-card">
+            <div class="card-header">
+                <span class="eyebrow">Distribuição</span>
+                <h2>Campanhas por modalidade</h2>
+            </div>
 
-                    <article class="kpi-card">
-                        <div class="kpi-icon">🛒</div>
-                        <div>
-                            <h3>Varejo</h3>
-                            <strong id="totalCampanhasVarejo">—</strong>
-                        </div>
-                    </article>
-                </section>
+            <div class="chart-wrapper">
+                <canvas id="graficoModalidadesCampanha"></canvas>
+            </div>
+        </article>
 
-                <section class="charts-grid">
-                    <article class="chart-card">
-                        <div class="card-header">
-                            <span class="eyebrow">Distribuição</span>
-                            <h2>Campanhas por modalidade</h2>
-                        </div>
+        <article class="chart-card apadrinhamento-card">
+            <div class="card-header">
+                <span class="eyebrow">Resultado comprovado</span>
+         <h2>Desempenho dos Filtros NF “Apadrinhamento”</h2>
+                <p>Resultado das 21 campanhas já encerradas.</p>
+            </div>
 
-                        <div class="chart-wrapper">
-                            <canvas id="graficoModalidadesCampanha"></canvas>
-                        </div>
-                    </article>
+            <div class="apadrinhamento-main-result">
+            <span class="result-badge">
+RESULTADO ALCANÇADO
+</span>
+                <strong class="kpi-number" data-target="1941">0</strong>
+                <small>de 1.720 peças provisionadas</small>
+            </div>
 
-                    <article class="chart-card">
-                        <div class="card-header">
-                            <span class="eyebrow">Canais</span>
-                            <h2>Peças alcançadas por canal</h2>
-                        </div>
-
-                        <div class="chart-wrapper">
-                            <canvas id="graficoPecasCampanhas"></canvas>
-                        </div>
-                    </article>
-                </section>
-
-                <section class="charts-grid charts-grid-single">
-                    <article class="chart-card">
-                        <div class="card-header">
-                            <span class="eyebrow">Destaques</span>
-                            <h2>Ranking de desempenho das campanhas</h2>
-                        </div>
-
-                        <div class="chart-wrapper">
-                            <canvas id="graficoRankingCampanhas"></canvas>
-                        </div>
-                    </article>
-                </section>
-            </section>
-
-            <!-- 5. GALERIA -->
-            <section class="page" id="galeria" data-title="Galeria de Fotos">
-                <header class="topbar">
-                    <div class="topbar-title">
-                        <span class="eyebrow">Evidências em campo</span>
-                        <h1>Galeria de Fotos</h1>
-                        <p>Registro visual das atividades realizadas.</p>
-                    </div>
-
-                    <div class="topbar-info">
-                        <div class="info-item">
-                            <span>Período analisado</span>
-                            <strong>Maio • Junho | 2026</strong>
-                        </div>
-                    </div>
-                </header>
-
-                <div class="gallery-filters" role="group" aria-label="Filtros da galeria">
-                    <button class="gallery-filter ativo" type="button" data-filter="todas">Todas</button>
-                    <button class="gallery-filter" type="button" data-filter="visitas">Visitas</button>
-                    <button class="gallery-filter" type="button" data-filter="pesquisas">Pesquisas</button>
-                    <button class="gallery-filter" type="button" data-filter="campanhas">Campanhas</button>
-                    <button class="gallery-filter" type="button" data-filter="treinamentos">Treinamentos</button>
+            <div class="campaign-progress" aria-label="Atingimento de 112,8%">
+                <div class="campaign-progress-track">
+                    <div class="campaign-progress-fill"></div>
                 </div>
 
-                <section class="gallery-grid" id="galeriaFotos">
-                    <article class="gallery-placeholder">
-                        <div class="gallery-placeholder-icon">📷</div>
-                        <h2>Galeria preparada</h2>
-                        <p>As fotos serão adicionadas aqui e poderão ser filtradas por categoria.</p>
-                    </article>
-                </section>
+                <div class="campaign-progress-labels">
+                    <span>Meta: 100%</span>
+                    <strong>112,8%</strong>
+                </div>
+            </div>
+
+            <div class="apadrinhamento-details">
+                <div>
+                    <span>Campanhas encerradas</span>
+                    <strong>21 de 30</strong>
+                </div>
+
+                <div>
+                    <span>Acima da meta</span>
+                    <strong>+221 peças</strong>
+                </div>
+
+                <div>
+                    <span>Superação</span>
+                    <strong>+12,8%</strong>
+                </div>
+            </div>
+
+            <p class="campaign-success-message">
+                 As campanhas encerradas superaram o volume provisionado,
+    comprovando o impacto comercial da ação Filtros NF “Apadrinhamento”.
+            </p>
+        </article>
+    </section>
+
+   <section class="campaign-distributor-summary">
+    <article class="chart-card distributor-performance-card">
+        <div class="card-header">
+            <span class="eyebrow">Campanhas de distribuidores</span>
+            <h2>Desempenho das ações em peças</h2>
+            <p>Campanhas direcionadas exclusivamente à marca Tecfil.</p>
+        </div>
+
+        <div class="distributor-highlight">
+            <div class="distributor-main-number">
+                <span>Volume total provisionado</span>
+                <strong>10.504</strong>
+                <small>peças</small>
+            </div>
+
+            <div class="distributor-badge">
+                <span>Marca trabalhada</span>
+                <strong>100% Tecfil</strong>
+            </div>
+        </div>
+
+        <div class="distributor-metrics">
+            <div class="distributor-metric">
+                <span>Total de campanhas</span>
+                <strong>7</strong>
+            </div>
+
+            <div class="distributor-metric">
+                <span>Maio</span>
+                <strong>3</strong>
+                <small>campanhas</small>
+            </div>
+
+            <div class="distributor-metric">
+                <span>Junho</span>
+                <strong>4</strong>
+                <small>campanhas</small>
+            </div>
+
+        <p class="distributor-message">
+            As sete campanhas somaram 10.504 peças provisionadas,
+            com concentração integral no portfólio Tecfil.
+        </p>
+    </article>
+</section>
+</section>
+<!-- 5. REGISTRO FOTOGRÁFICO -->
+<section class="page" id="galeria" data-title="Registro Fotográfico">
+
+    <header class="topbar">
+        <div class="topbar-title">
+            <h1>Registro Fotográfico</h1>
+            <p>Principais ações realizadas em maio e junho de 2026.</p>
+        </div>
+
+        <div class="topbar-info">
+            <div class="info-item">
+                <span>Período analisado</span>
+                <strong>Maio • Junho | 2026</strong>
+            </div>
+        </div>
+    </header>
+
+    <!-- DESTAQUES -->
+    <section class="photo-section">
+        <div class="photo-section-header">
+            <span class="eyebrow">Seleção especial</span>
+            <h2>Destaques do período</h2>
+            <p>Registros que representam os principais momentos das ações realizadas.</p>
+        </div>
+
+        <div class="featured-gallery">
+            <button class="photo-item photo-item-main" type="button">
+                <img
+                    src="assets/fotos/destaques/destaque-01.jpeg"
+                    alt="Destaque das ações realizadas no período"
+                    loading="lazy"
+                >
+            </button>
+
+            <button class="photo-item" type="button">
+                <img
+                    src="assets/fotos/destaques/destaque-02.jpeg"
+                    alt="Destaque das ações realizadas no período"
+                    loading="lazy"
+                >
+            </button>
+
+            <button class="photo-item" type="button">
+                <img
+                    src="assets/fotos/destaques/destaque-03.jpeg"
+                    alt="Destaque das ações realizadas no período"
+                    loading="lazy"
+                >
+            </button>
+
+            <button class="photo-item" type="button">
+                <img
+                    src="assets/fotos/destaques/destaque-04.jpeg"
+                    alt="Destaque das ações realizadas no período"
+                    loading="lazy"
+                >
+            </button>
+
+            <button class="photo-item" type="button">
+                <img
+                    src="assets/fotos/destaques/destaque-05.jpeg"
+                    alt="Destaque das ações realizadas no período"
+                    loading="lazy"
+                >
+            </button>
+
+            <button class="photo-item" type="button">
+                <img
+                    src="assets/fotos/destaques/destaque-06.jpeg"
+                    alt="Destaque das ações realizadas no período"
+                    loading="lazy"
+                >
+            </button>
+        </div>
+    </section>
+
+    <!-- VISITAS -->
+    <section class="photo-section">
+        <div class="photo-section-header">
+            <span class="eyebrow">Atuação em campo</span>
+            <h2>Visitas</h2>
+            <p>Registros das visitas realizadas aos clientes e parceiros comerciais.</p>
+        </div>
+
+        <div class="photo-grid photo-grid-four">
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-01.jpeg" alt="Registro de visita 1" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-02.jpeg" alt="Registro de visita 2" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-03.jpeg" alt="Registro de visita 3" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-04.jpeg" alt="Registro de visita 4" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-05.jpeg" alt="Registro de visita 5" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-06.jpeg" alt="Registro de visita 6" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-07.jpeg" alt="Registro de visita 7" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/visitas/visita-08.jpeg" alt="Registro de visita 8" loading="lazy">
+            </button>
+        </div>
+    </section>
+
+    <!-- PALESTRAS -->
+    <section class="photo-section">
+        <div class="photo-section-header">
+            <span class="eyebrow">Relacionamento e capacitação</span>
+            <h2>Palestras</h2>
+            <p>Momentos de troca de conhecimento e aproximação com o mercado.</p>
+        </div>
+
+        <div class="photo-grid photo-grid-three">
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-01.jpeg" alt="Registro de palestra 1" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-02.jpeg" alt="Registro de palestra 2" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-03.jpeg" alt="Registro de palestra 3" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-04.jpeg" alt="Registro de palestra 4" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-05.jpeg" alt="Registro de palestra 5" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-06.jpeg" alt="Registro de palestra 6" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-07.jpeg" alt="Registro de palestra 7" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-08.jpeg" alt="Registro de palestra 8" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/palestra/palestra-09.jpeg" alt="Registro de palestra 9" loading="lazy">
+            </button>
+        </div>
+    </section>
+
+    <!-- DISTRIBUIDORES -->
+    <section class="photo-section">
+        <div class="photo-section-header">
+            <span class="eyebrow">Execução das campanhas</span>
+            <h2>Ações em Distribuidores</h2>
+            <p>Registros das campanhas e ativações realizadas junto aos distribuidores.</p>
+        </div>
+
+        <div class="photo-grid photo-grid-four">
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-01.jpeg" alt="Ação em distribuidor 1" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-02.jpeg" alt="Ação em distribuidor 2" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-03.jpeg" alt="Ação em distribuidor 3" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-04.jpeg" alt="Ação em distribuidor 4" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-05.jpeg" alt="Ação em distribuidor 5" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-06.jpeg" alt="Ação em distribuidor 6" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-07.jpeg" alt="Ação em distribuidor 7" loading="lazy">
+            </button>
+
+            <button class="photo-item" type="button">
+                <img src="assets/fotos/distribuidores/distribuidor-08.jpeg" alt="Ação em distribuidor 8" loading="lazy">
+            </button>
+        </div>
+    </section>
+
+    <!-- MODAL PARA AMPLIAR AS FOTOS -->
+<div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+    <button
+        class="photo-lightbox-close"
+        id="photoLightboxClose"
+        type="button"
+        aria-label="Fechar imagem ampliada"
+    >
+        ×
+    </button>
+
+    <img
+        class="photo-lightbox-image"
+        id="photoLightboxImage"
+        src=""
+        alt=""
+    >
+</div>
+
+</section>
+            
             </section>
 
             <footer class="dashboard-footer">
@@ -439,4 +779,20 @@
 
 <script src="js/script.js"></script>
 </body>
+<footer class="dashboard-footer">
+
+    <div class="footer-left">
+        Dashboard de Performance Comercial
+    </div>
+
+    <div class="footer-center">
+        TECFIL • GSP • 2026
+    </div>
+
+    <div class="footer-right">
+        Desenvolvido por
+        <strong>Geysa Sechi Poisl</strong>
+    </div>
+
+</footer>
 </html>

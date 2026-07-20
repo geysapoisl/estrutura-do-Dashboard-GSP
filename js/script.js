@@ -7,24 +7,637 @@ document.addEventListener("DOMContentLoaded", () => {
     const home = document.getElementById("home");
     const dashboard = document.getElementById("dashboard");
     const btnEntrar = document.getElementById("btnEntrar");
+    const menuLinks = document.querySelectorAll(".menu a[data-page]");
+    const pages = document.querySelectorAll(".page");
+    const chartInstances = {};
 
-    const linksMenu = document.querySelectorAll(".menu a");
-    const paginas = document.querySelectorAll(".page");
-    const filtrosGaleria = document.querySelectorAll(".gallery-filter");
+    const formatNumber = (value) =>
+        new Intl.NumberFormat("pt-BR").format(value);
 
-    let graficosCriados = false;
-    let numerosAnimados = false;
+    function animateNumbers(container = document) {
+        const numbers = container.querySelectorAll(".kpi-number");
 
-    /* =====================================================
-       1. ABRIR O DASHBOARD
-       ===================================================== */
+        numbers.forEach((element) => {
+            if (element.dataset.animated === "true") return;
 
-    function abrirDashboard() {
+            const target = Number(element.dataset.target || 0);
+            const duration = 900;
+            const startTime = performance.now();
+
+            element.dataset.animated = "true";
+
+            function update(currentTime) {
+                const progress = Math.min(
+                    (currentTime - startTime) / duration,
+                    1
+                );
+
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(target * eased);
+
+                element.textContent = formatNumber(current);
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = formatNumber(target);
+                }
+            }
+
+            requestAnimationFrame(update);
+        });
+    }
+
+    function destroyChart(id) {
+        if (chartInstances[id]) {
+            chartInstances[id].destroy();
+            delete chartInstances[id];
+        }
+    }
+
+    function createChart(id, config) {
+        const canvas = document.getElementById(id);
+
+        if (!canvas || typeof Chart === "undefined") return;
+
+        destroyChart(id);
+        chartInstances[id] = new Chart(canvas, config);
+    }
+
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        animation: {
+            duration: 850
+        },
+
+        plugins: {
+            legend: {
+                position: "bottom",
+
+                labels: {
+                    usePointStyle: true,
+                    boxWidth: 10,
+                    padding: 18,
+
+                    font: {
+                        family: "Poppins"
+                    }
+                }
+            },
+
+            tooltip: {
+                callbacks: {
+                    label(context) {
+                        const label = context.dataset.label
+                            ? `${context.dataset.label}: `
+                            : "";
+
+                        return `${label}${formatNumber(context.raw)}`;
+                    }
+                }
+            }
+        }
+    };
+
+    function renderOverviewCharts() {
+        createChart("graficoPecas", {
+            type: "doughnut",
+
+            data: {
+                labels: [
+                    "Distribuidores",
+                    "Varejo"
+                ],
+
+                datasets: [{
+                    data: [
+                        10504,
+                        5127
+                    ],
+
+                    backgroundColor: [
+                        "#1d4f91",
+                        "#2ea67c"
+                    ],
+
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+
+            options: {
+                ...commonOptions,
+                cutout: "68%"
+            }
+        });
+
+        createChart("graficoResultados", {
+            type: "bar",
+
+            data: {
+                labels: [
+                    "Visitas",
+                    "Pesquisas",
+                    "Campanhas",
+                    "Novos Clientes",
+                    "Capacitações"
+                ],
+
+                datasets: [{
+                    label: "Total",
+
+                    data: [
+                        152,
+                        24,
+                        51,
+                        19,
+                        2
+                    ],
+
+                    backgroundColor: [
+                        "#1d4f91",
+                        "#2ea67c",
+                        "#f59b45",
+                        "#d95c5c",
+                        "#f2c14e"
+                    ],
+
+                    borderRadius: 10,
+                    borderSkipped: false
+                }]
+            },
+
+            options: {
+                ...commonOptions,
+
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+
+                        ticks: {
+                            font: {
+                                family: "Poppins"
+                            }
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+
+                        grid: {
+                            color: "rgba(124, 135, 152, 0.14)"
+                        },
+
+                        ticks: {
+                            precision: 0,
+
+                            font: {
+                                family: "Poppins"
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderVisitsCharts() {
+        const visitsPlugins =
+            typeof ChartDataLabels !== "undefined"
+                ? [ChartDataLabels]
+                : [];
+
+        createChart("graficoVisitasMensais", {
+            type: "bar",
+
+            data: {
+                labels: [
+                    "Maio",
+                    "Junho"
+                ],
+
+                datasets: [{
+                    label: "Visitas",
+
+                    data: [
+                        89,
+                        63
+                    ],
+
+                    backgroundColor: [
+                        "#3b82f6",
+                        "#1d4f91"
+                    ],
+
+                    borderRadius: 12,
+                    borderSkipped: false,
+                    maxBarThickness: 90
+                }]
+            },
+
+            plugins: visitsPlugins,
+
+            options: {
+                ...commonOptions,
+
+                layout: {
+                    padding: {
+                        top: 24
+                    }
+                },
+
+                plugins: {
+                    ...commonOptions.plugins,
+
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+                        enabled: true,
+
+                        callbacks:
+                            commonOptions.plugins.tooltip.callbacks
+                    },
+
+                    datalabels: {
+                        display: true,
+                        anchor: "end",
+                        align: "top",
+                        offset: 4,
+                        clamp: true,
+                        clip: false,
+                        color: "#1f2937",
+
+                        font: {
+                            family: "Poppins",
+                            weight: "700",
+                            size: 14
+                        },
+
+                        formatter: (value) =>
+                            formatNumber(value)
+                    }
+                },
+
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+
+                        ticks: {
+                            font: {
+                                family: "Poppins",
+                                weight: "600"
+                            }
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 105,
+
+                        grid: {
+                            color: "rgba(124, 135, 152, 0.14)"
+                        },
+
+                        ticks: {
+                            stepSize: 20,
+                            precision: 0,
+
+                            font: {
+                                family: "Poppins"
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        createChart("graficoVisitasCanal", {
+            type: "doughnut",
+
+            data: {
+                labels: [
+                    "Distribuidores",
+                    "Varejo"
+                ],
+
+                datasets: [{
+                    data: [
+                        38,
+                        114
+                    ],
+
+                    backgroundColor: [
+                        "#f59e0b",
+                        "#10b981"
+                    ],
+
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+
+            options: {
+                ...commonOptions,
+                cutout: "64%"
+            }
+        });
+    }
+    function renderResearchCharts() {
+        const researchPlugins =
+            typeof ChartDataLabels !== "undefined"
+                ? [ChartDataLabels]
+                : [];
+
+        createChart("graficoMarcasPesquisa", {
+            type: "bar",
+
+            data: {
+                labels: [
+                    "WEGA",
+                    "TECFIL",
+                    "VOX",
+                    "MANN",
+                    "MAHLE",
+                    "HENGST"
+                ],
+
+                datasets: [{
+                    label: "Participação (%)",
+
+                    data: [
+                        43.15,
+                        32.36,
+                        14.52,
+                        5.39,
+                        3.32,
+                        1.24
+                    ],
+
+                    backgroundColor: [
+                        "#6b7280",
+                        "#1d4f91",
+                        "#f59b45",
+                        "#9ca3af",
+                        "#cbd5e1",
+                        "#e5e7eb"
+                    ],
+
+                    borderRadius: 10,
+                    borderSkipped: false,
+                    maxBarThickness: 72
+                }]
+            },
+
+            plugins: researchPlugins,
+
+            options: {
+                ...commonOptions,
+
+                layout: {
+                    padding: {
+                        top: 28
+                    }
+                },
+
+                plugins: {
+                    ...commonOptions.plugins,
+
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+                        enabled: true,
+
+                        callbacks: {
+                            label(context) {
+                                return `${context.raw.toLocaleString(
+                                    "pt-BR",
+                                    {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    }
+                                )}%`;
+                            }
+                        }
+                    },
+
+                    datalabels: {
+                        display: true,
+                        anchor: "end",
+                        align: "top",
+                        offset: 4,
+                        clamp: true,
+                        clip: false,
+                        color: "#1f2937",
+
+                        font: {
+                            family: "Poppins",
+                            weight: "700",
+                            size: 13
+                        },
+
+                        formatter: (value) =>
+                            `${value.toLocaleString(
+                                "pt-BR",
+                                {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                }
+                            )}%`
+                    }
+                },
+
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+
+                        ticks: {
+                            font: {
+                                family: "Poppins",
+                                weight: "600"
+                            }
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+                        max: 50,
+
+                        grid: {
+                            color: "rgba(124, 135, 152, 0.14)"
+                        },
+
+                        ticks: {
+                            stepSize: 10,
+
+                            callback(value) {
+                                return value + "%";
+                            },
+
+                            font: {
+                                family: "Poppins"
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        createChart("graficoTipoEstabelecimento", {
+            type: "doughnut",
+
+            data: {
+                labels: [
+                    "Posto de Combustível",
+                    "Centro Automotivo",
+                    "Oficina Mecânica",
+                    "Autopeças"
+                ],
+
+                datasets: [{
+                    data: [
+                        11,
+                        8,
+                        3,
+                        2
+                    ],
+
+                    backgroundColor: [
+                        "#1d4f91",
+                        "#2ea67c",
+                        "#f59b45",
+                        "#d95c5c"
+                    ],
+
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+
+            options: {
+                ...commonOptions,
+                cutout: "64%"
+            }
+        });
+    }
+
+ function renderCampaignCharts() {
+
+    const modalidades = document.getElementById('graficoModalidadesCampanha');
+
+    if (modalidades) {
+        new Chart(modalidades, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Filtros NF',
+                    'Rodadas',
+                    'Distribuidores'
+                ],
+                datasets: [{
+                    label: 'Campanhas',
+                    data: [30, 14, 7],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+}
+    function renderChartsForPage(pageId) {
+        requestAnimationFrame(() => {
+            if (pageId === "visao-geral") {
+                renderOverviewCharts();
+            }
+
+            if (pageId === "visitas") {
+                renderVisitsCharts();
+            }
+
+            if (pageId === "pesquisas") {
+                renderResearchCharts();
+            }
+
+            if (pageId === "campanhas") {
+                renderCampaignCharts();
+            }
+        });
+    }
+
+    function showPage(pageId, updateHash = true) {
+        const targetPage = document.getElementById(pageId);
+
+        if (!targetPage) return;
+
+        pages.forEach((page) => {
+            page.classList.remove("ativa");
+        });
+
+        menuLinks.forEach((link) => {
+            link.classList.remove("ativo");
+        });
+
+        targetPage.classList.add("ativa");
+
+        const activeLink = document.querySelector(
+            `.menu a[data-page="${pageId}"]`
+        );
+
+        if (activeLink) {
+            activeLink.classList.add("ativo");
+        }
+
+        if (updateHash) {
+            history.replaceState(
+                null,
+                "",
+                `#${pageId}`
+            );
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        animateNumbers(targetPage);
+        renderChartsForPage(pageId);
+    }
+
+    function openDashboard() {
         if (home) {
             home.classList.add("saindo");
         }
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             if (home) {
                 home.style.display = "none";
             }
@@ -33,565 +646,135 @@ document.addEventListener("DOMContentLoaded", () => {
                 dashboard.classList.add("visivel");
             }
 
-            abrirPagina("visao-geral");
-            criarGraficos();
+            const initialPage =
+                location.hash.replace("#", "") ||
+                "visao-geral";
 
-            if (!numerosAnimados) {
-                animarNumeros();
-                numerosAnimados = true;
-            }
-        }, 420);
+            showPage(initialPage, false);
+        }, 450);
     }
 
     if (btnEntrar) {
-        btnEntrar.addEventListener("click", abrirDashboard);
+        btnEntrar.addEventListener(
+            "click",
+            openDashboard
+        );
     }
 
-    /* =====================================================
-       2. NAVEGAÇÃO ENTRE AS PÁGINAS
-       ===================================================== */
-
-    function abrirPagina(idPagina) {
-        paginas.forEach((pagina) => {
-            pagina.classList.toggle("ativa", pagina.id === idPagina);
-        });
-
-        linksMenu.forEach((link) => {
-            link.classList.toggle("ativo", link.dataset.page === idPagina);
-        });
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-        atualizarGraficosVisiveis();
-    }
-
-    linksMenu.forEach((link) => {
-        link.addEventListener("click", (evento) => {
-            evento.preventDefault();
-
-            const paginaSelecionada = link.dataset.page;
-
-            if (paginaSelecionada) {
-                abrirPagina(paginaSelecionada);
-                history.replaceState(null, "", `#${paginaSelecionada}`);
-            }
+    menuLinks.forEach((link) => {
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            showPage(link.dataset.page);
         });
     });
 
-    /* =====================================================
-       3. ANIMAÇÃO DOS NÚMEROS
-       ===================================================== */
-
-    function formatarNumero(valor) {
-        return new Intl.NumberFormat("pt-BR").format(valor);
-    }
-
-    function animarNumero(elemento) {
-        const alvo = Number(elemento.dataset.target || 0);
-        const duracao = 1300;
-        const inicio = performance.now();
-
-        function atualizar(tempoAtual) {
-            const progresso = Math.min((tempoAtual - inicio) / duracao, 1);
-            const suavizacao = 1 - Math.pow(1 - progresso, 3);
-            const valorAtual = Math.floor(alvo * suavizacao);
-
-            elemento.textContent = formatarNumero(valorAtual);
-
-            if (progresso < 1) {
-                requestAnimationFrame(atualizar);
-            } else {
-                elemento.textContent = formatarNumero(alvo);
-            }
-        }
-
-        requestAnimationFrame(atualizar);
-    }
-
-    function animarNumeros() {
-        document.querySelectorAll(".kpi-number").forEach(animarNumero);
-    }
-
-    /* =====================================================
-       4. CONFIGURAÇÕES GERAIS DOS GRÁFICOS
-       ===================================================== */
-
-    if (typeof Chart !== "undefined") {
-        Chart.defaults.font.family = "Poppins, Arial, sans-serif";
-        Chart.defaults.color = "#657083";
-        Chart.defaults.borderColor = "rgba(213, 220, 231, 0.70)";
-    }
-
-    const cores = {
-        azul: "#1d4f91",
-        azulClaro: "#78a6df",
-        verde: "#2ea67c",
-        laranja: "#f59b45",
-        roxo: "#7657c8",
-        vermelho: "#d95c5c",
-        amarelo: "#f2c14e",
-        cinza: "#a5afbd"
-    };
-
-    const graficos = {};
-
-    function opcoesBase() {
-        return {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: {
-                duration: 900,
-                easing: "easeOutQuart"
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        usePointStyle: true,
-                        pointStyle: "circle",
-                        padding: 18
-                    }
-                },
-                tooltip: {
-                    backgroundColor: "#07152b",
-                    padding: 12,
-                    titleFont: {
-                        weight: "600"
-                    },
-                    bodyFont: {
-                        size: 12
-                    }
-                }
-            }
-        };
-    }
-
-    function criarGrafico(idCanvas, configuracao) {
-        const canvas = document.getElementById(idCanvas);
-
-        if (!canvas || typeof Chart === "undefined") {
-            return null;
-        }
-
-        if (graficos[idCanvas]) {
-            graficos[idCanvas].destroy();
-        }
-
-        graficos[idCanvas] = new Chart(canvas, configuracao);
-        return graficos[idCanvas];
-    }
-
-    /* =====================================================
-       5. CRIAÇÃO DOS GRÁFICOS
-       ===================================================== */
-
-    function criarGraficos() {
-        if (graficosCriados || typeof Chart === "undefined") {
+    window.addEventListener("hashchange", () => {
+        if (
+            !dashboard ||
+            !dashboard.classList.contains("visivel")
+        ) {
             return;
         }
 
-        graficosCriados = true;
+        const pageId =
+            location.hash.replace("#", "") ||
+            "visao-geral";
 
-        criarGrafico("graficoPecas", {
-            type: "doughnut",
-            data: {
-                labels: ["Distribuidores", "Varejo"],
-                datasets: [{
-                    data: [10504, 5127],
-                    backgroundColor: [cores.azul, cores.laranja],
-                    borderWidth: 0,
-                    hoverOffset: 8
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                cutout: "68%",
-                plugins: {
-                    ...opcoesBase().plugins,
-                    tooltip: {
-                        ...opcoesBase().plugins.tooltip,
-                        callbacks: {
-                            label: (contexto) =>
-                                `${contexto.label}: ${formatarNumero(contexto.raw)} peças`
-                        }
-                    }
-                }
-            }
-        });
+        showPage(pageId, false);
+    });
 
-        criarGrafico("graficoResultados", {
-            type: "bar",
-            data: {
-                labels: [
-                    "Visitas",
-                    "Pesquisas",
-                    "Campanhas",
-                    "Novos clientes",
-                    "Capacitações"
-                ],
-                datasets: [{
-                    label: "Total",
-                    data: [152, 23, 41, 19, 2],
-                    backgroundColor: [
-                        cores.azul,
-                        cores.verde,
-                        cores.laranja,
-                        cores.vermelho,
-                        cores.amarelo
-                    ],
-                    borderRadius: 10,
-                    borderSkipped: false
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0
-                        }
-                    }
-                },
-                plugins: {
-                    ...opcoesBase().plugins,
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
+    const galleryFilters =
+        document.querySelectorAll(".gallery-filter");
 
-        criarGrafico("graficoVisitasMensais", {
-            type: "line",
-            data: {
-                labels: ["Maio", "Junho"],
-                datasets: [{
-                    label: "Visitas realizadas",
-                    data: [74, 78],
-                    borderColor: cores.azul,
-                    backgroundColor: "rgba(29, 79, 145, 0.12)",
-                    pointBackgroundColor: cores.azul,
-                    pointRadius: 6,
-                    pointHoverRadius: 8,
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.35
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0
-                        }
-                    }
-                }
-            }
-        });
-
-        criarGrafico("graficoMarcasPesquisa", {
-            type: "bar",
-            data: {
-                labels: ["Tecfil", "Wega", "Mahle", "Fram", "Outras"],
-                datasets: [{
-                    label: "Participação",
-                    data: [38, 26, 16, 11, 9],
-                    backgroundColor: [
-                        cores.azul,
-                        cores.laranja,
-                        cores.verde,
-                        cores.roxo,
-                        cores.cinza
-                    ],
-                    borderRadius: 8,
-                    borderSkipped: false
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                indexAxis: "y",
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        max: 45,
-                        ticks: {
-                            callback: (valor) => `${valor}%`
-                        }
-                    },
-                    y: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    ...opcoesBase().plugins,
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        ...opcoesBase().plugins.tooltip,
-                        callbacks: {
-                            label: (contexto) => `${contexto.raw}%`
-                        }
-                    }
-                }
-            }
-        });
-
-        criarGrafico("graficoTipoEstabelecimento", {
-            type: "doughnut",
-            data: {
-                labels: [
-                    "Autopeças",
-                    "Oficinas",
-                    "Distribuidores",
-                    "Outros"
-                ],
-                datasets: [{
-                    data: [43, 30, 17, 10],
-                    backgroundColor: [
-                        cores.azul,
-                        cores.verde,
-                        cores.laranja,
-                        cores.roxo
-                    ],
-                    borderWidth: 0,
-                    hoverOffset: 8
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                cutout: "62%",
-                plugins: {
-                    ...opcoesBase().plugins,
-                    tooltip: {
-                        ...opcoesBase().plugins.tooltip,
-                        callbacks: {
-                            label: (contexto) =>
-                                `${contexto.label}: ${contexto.raw}%`
-                        }
-                    }
-                }
-            }
-        });
-
-        criarGrafico("graficoModalidadesCampanha", {
-            type: "bar",
-            data: {
-                labels: [
-                    "Rodadas de Prêmios",
-                    "Campanhas por Notas",
-                    "Outras ações"
-                ],
-                datasets: [{
-                    label: "Campanhas",
-                    data: [18, 15, 8],
-                    backgroundColor: [
-                        cores.laranja,
-                        cores.azul,
-                        cores.verde
-                    ],
-                    borderRadius: 10,
-                    borderSkipped: false
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0
-                        }
-                    }
-                },
-                plugins: {
-                    ...opcoesBase().plugins,
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-
-        criarGrafico("graficoPecasCampanhas", {
-            type: "doughnut",
-            data: {
-                labels: ["Distribuidores", "Varejo"],
-                datasets: [{
-                    data: [10504, 5127],
-                    backgroundColor: [cores.azul, cores.laranja],
-                    borderWidth: 0,
-                    hoverOffset: 8
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                cutout: "65%",
-                plugins: {
-                    ...opcoesBase().plugins,
-                    tooltip: {
-                        ...opcoesBase().plugins.tooltip,
-                        callbacks: {
-                            label: (contexto) =>
-                                `${contexto.label}: ${formatarNumero(contexto.raw)} peças`
-                        }
-                    }
-                }
-            }
-        });
-
-        criarGrafico("graficoRankingCampanhas", {
-            type: "bar",
-            data: {
-                labels: [
-                    "Campanha A",
-                    "Campanha B",
-                    "Campanha C",
-                    "Campanha D",
-                    "Campanha E"
-                ],
-                datasets: [{
-                    label: "Peças alcançadas",
-                    data: [3680, 3120, 2840, 2270, 1721],
-                    backgroundColor: cores.azul,
-                    borderRadius: 9,
-                    borderSkipped: false
-                }]
-            },
-            options: {
-                ...opcoesBase(),
-                indexAxis: "y",
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: (valor) => formatarNumero(valor)
-                        }
-                    },
-                    y: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    ...opcoesBase().plugins,
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        ...opcoesBase().plugins.tooltip,
-                        callbacks: {
-                            label: (contexto) =>
-                                `${formatarNumero(contexto.raw)} peças`
-                        }
-                    }
-                }
-            }
-        });
-
-        preencherIndicadoresCampanhas();
-    }
-
-    /* =====================================================
-       6. INDICADORES COMPLEMENTARES DE CAMPANHAS
-       ===================================================== */
-
-    function definirTexto(id, valor) {
-        const elemento = document.getElementById(id);
-
-        if (elemento) {
-            elemento.textContent = valor;
-        }
-    }
-
-    function preencherIndicadoresCampanhas() {
-        definirTexto("totalRodadasPremio", "18");
-        definirTexto("totalCampanhasNotas", "15");
-        definirTexto("totalCampanhasDistribuidores", "24");
-        definirTexto("totalCampanhasVarejo", "17");
-    }
-
-    /* =====================================================
-       7. GALERIA DE FOTOS
-       ===================================================== */
-
-    filtrosGaleria.forEach((botao) => {
-        botao.addEventListener("click", () => {
-            filtrosGaleria.forEach((item) => {
+    galleryFilters.forEach((button) => {
+        button.addEventListener("click", () => {
+            galleryFilters.forEach((item) => {
                 item.classList.remove("ativo");
             });
 
-            botao.classList.add("ativo");
+            button.classList.add("ativo");
 
-            const filtro = botao.dataset.filter;
-            const fotos = document.querySelectorAll(".gallery-item");
+            const filter = button.dataset.filter;
 
-            fotos.forEach((foto) => {
-                const categoria = foto.dataset.category;
-                const mostrar = filtro === "todas" || categoria === filtro;
+            const galleryItems =
+                document.querySelectorAll(
+                    "#galeriaFotos .gallery-item"
+                );
 
-                foto.classList.toggle("oculto", !mostrar);
+            galleryItems.forEach((item) => {
+                const category = item.dataset.category;
+
+                const shouldShow =
+                    filter === "todas" ||
+                    category === filter;
+
+                item.classList.toggle(
+                    "oculto",
+                    !shouldShow
+                );
             });
         });
     });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const photoItems = document.querySelectorAll('.photo-item');
+    const lightbox = document.getElementById('photoLightbox');
+    const lightboxImage = document.getElementById('photoLightboxImage');
+    const lightboxClose = document.getElementById('photoLightboxClose');
 
-    /* =====================================================
-       8. AJUSTE DOS GRÁFICOS AO TROCAR DE PÁGINA
-       ===================================================== */
-
-    function atualizarGraficosVisiveis() {
-        setTimeout(() => {
-            Object.values(graficos).forEach((grafico) => {
-                if (grafico) {
-                    grafico.resize();
-                }
-            });
-        }, 80);
+    if (!lightbox || !lightboxImage) {
+        console.warn('Lightbox da galeria não encontrado.');
+        return;
     }
 
-    window.addEventListener("resize", atualizarGraficosVisiveis);
+    photoItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            const image = item.querySelector('img');
 
-    /* =====================================================
-       9. ABERTURA DIRETA POR ENDEREÇO
-       ===================================================== */
+            if (!image) return;
 
-    const paginaNaUrl = window.location.hash.replace("#", "");
+            lightboxImage.src = image.src;
+            lightboxImage.alt = image.alt || 'Foto ampliada';
 
-    if (paginaNaUrl && document.getElementById(paginaNaUrl)) {
-        if (home) {
-            home.style.display = "none";
-        }
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        });
+    });
 
-        if (dashboard) {
-            dashboard.classList.add("visivel");
-        }
-
-        abrirPagina(paginaNaUrl);
-        criarGraficos();
-        animarNumeros();
-        numerosAnimados = true;
+    function closePhotoLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = '';
+        document.body.style.overflow = '';
     }
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closePhotoLightbox);
+    }
+
+    lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+            closePhotoLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closePhotoLightbox();
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const splashScreen = document.getElementById('splashScreen');
+
+    if (!splashScreen) return;
+
+    window.setTimeout(() => {
+        splashScreen.classList.add('is-hidden');
+
+        window.setTimeout(() => {
+            splashScreen.remove();
+        }, 700);
+    }, 2200);
 });
