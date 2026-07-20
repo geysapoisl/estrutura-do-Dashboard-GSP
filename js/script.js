@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     backgroundColor: [
                         "#1d4f91",
-                        "#2ea67c"
+                        "#f8e409"
                     ],
 
                     borderWidth: 0,
@@ -158,9 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     backgroundColor: [
                         "#1d4f91",
-                        "#2ea67c",
+                        "#f6f211",
                         "#f59b45",
-                        "#d95c5c",
+                        "#6cf4d6",
                         "#f2c14e"
                     ],
 
@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     backgroundColor: [
                         "#f59e0b",
-                        "#10b981"
+                        "#0b46e8"
                     ],
 
                     borderWidth: 0,
@@ -517,7 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "#1d4f91",
                         "#2ea67c",
                         "#f59b45",
-                        "#d95c5c"
+                        "#92e8da"
                     ],
 
                     borderWidth: 0,
