@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard de Performance Comercial GSP 2026">
     <title>Dashboard de Performance Comercial | GSP</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,11 +13,12 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
 
+<body>
 <div id="app">
 
-    <section id="home">
+    <!-- TELA INICIAL -->
+    <section id="home" aria-label="Tela de abertura">
         <div class="overlay"></div>
 
         <div class="home-content">
@@ -24,154 +26,417 @@
             <h2>Relatório Executivo Interativo</h2>
             <p>Maio • Junho | 2026</p>
 
-            <button id="btnEntrar">
+            <button id="btnEntrar" type="button">
                 Entrar no Dashboard
             </button>
         </div>
     </section>
 
+    <!-- DASHBOARD -->
     <main id="dashboard">
 
+        <!-- MENU LATERAL -->
         <aside class="sidebar">
             <div class="brand">
                 <h2>TECFIL</h2>
                 <span>Performance Comercial</span>
             </div>
 
-            <nav class="menu">
-                <a href="#" class="ativo">Visão Geral</a>
-                <a href="#">Visitas</a>
-                <a href="#">Pesquisas</a>
-                <a href="#">Campanhas</a>
-                <a href="#">Clientes</a>
-                <a href="#">Capacitações</a>
+            <nav class="menu" aria-label="Navegação principal">
+                <a href="#visao-geral" class="ativo" data-page="visao-geral">Visão Geral</a>
+                <a href="#visitas" data-page="visitas">Visitas</a>
+                <a href="#pesquisas" data-page="pesquisas">Pesquisas</a>
+                <a href="#campanhas" data-page="campanhas">Campanhas</a>
+                <a href="#galeria" data-page="galeria">Galeria de Fotos</a>
             </nav>
         </aside>
 
+        <!-- ÁREA QUE MUDA AO CLICAR NO MENU -->
         <section class="main-content">
 
-            <header class="topbar">
-                <div>
-                    <h1>Dashboard Executivo</h1>
-                    <p>Indicadores que apoiam decisões.</p>
-                </div>
-            </header>
+            <!-- 1. VISÃO GERAL -->
+            <section class="page ativa" id="visao-geral" data-title="Visão Geral">
 
-            <section class="kpi-grid">
+                <header class="topbar">
+                    <div class="topbar-title">
+                        <span class="eyebrow">Relatório Executivo Interativo</span>
+                        <h1>Dashboard de Performance Comercial</h1>
+                        <p>Panorama consolidado das ações comerciais.</p>
+                    </div>
 
-                <div class="kpi-card">
-                    <h3>Visitas</h3>
-                    <strong>152</strong>
-                </div>
+                    <div class="topbar-info">
+                        <div class="info-item">
+                            <span>Período analisado</span>
+                            <strong>Maio • Junho | 2026</strong>
+                        </div>
 
-                <div class="kpi-card">
-                    <h3>Pesquisas</h3>
-                    <strong>23</strong>
-                </div>
+                        <div class="info-item">
+                            <span>Fonte dos dados</span>
+                            <strong>Sistema Auvo</strong>
+                        </div>
 
-                <div class="kpi-card">
-                    <h3>Campanhas</h3>
-                    <strong>41</strong>
-                </div>
+                        <div class="info-item">
+                            <span>Responsável</span>
+                            <strong>Geysa Sechi Poisl</strong>
+                        </div>
+                    </div>
+                </header>
 
-                <div class="kpi-card">
-                    <h3>Peças Alcançadas</h3>
-                    <strong>15.631</strong>
-                </div>
-
-                <div class="kpi-card">
-                    <h3>Novos Clientes</h3>
-                    <strong>19</strong>
-                </div>
-
-                <div class="kpi-card">
-                    <h3>Capacitações</h3>
-                    <strong>2</strong>
-                </div>
-
-            </section>
-
-            <section class="charts-grid">
-
-                <article class="chart-card">
-                    <div class="card-header">
+                <section class="kpi-grid" id="indicadores">
+                    <article class="kpi-card kpi-visitas">
+                        <div class="kpi-icon">👣</div>
                         <div>
+                            <h3>Visitas</h3>
+                            <strong class="kpi-number" data-target="152">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card kpi-pesquisas">
+                        <div class="kpi-icon">📋</div>
+                        <div>
+                            <h3>Pesquisas</h3>
+                            <strong class="kpi-number" data-target="23">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card kpi-campanhas">
+                        <div class="kpi-icon">📣</div>
+                        <div>
+                            <h3>Campanhas</h3>
+                            <strong class="kpi-number" data-target="41">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card kpi-pecas">
+                        <div class="kpi-icon">📦</div>
+                        <div>
+                            <h3>Peças Alcançadas</h3>
+                            <strong class="kpi-number" data-target="15631">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card kpi-clientes">
+                        <div class="kpi-icon">🤝</div>
+                        <div>
+                            <h3>Novos Clientes</h3>
+                            <strong class="kpi-number" data-target="19">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card kpi-capacitacoes">
+                        <div class="kpi-icon">🎓</div>
+                        <div>
+                            <h3>Capacitações</h3>
+                            <strong class="kpi-number" data-target="2">0</strong>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="charts-grid" id="graficos">
+                    <article class="chart-card">
+                        <div class="card-header">
                             <span class="eyebrow">Distribuição</span>
                             <h2>Peças alcançadas por canal</h2>
                         </div>
-                    </div>
 
-                    <div class="chart-wrapper">
-                        <canvas id="graficoPecas"></canvas>
-                    </div>
-                </article>
+                        <div class="chart-wrapper">
+                            <canvas id="graficoPecas"></canvas>
+                        </div>
+                    </article>
 
-                <article class="chart-card">
-                    <div class="card-header">
-                        <div>
+                    <article class="chart-card">
+                        <div class="card-header">
                             <span class="eyebrow">Comparativo</span>
                             <h2>Resultados do período</h2>
                         </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="graficoResultados"></canvas>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="executive-summary" id="resumo">
+                    <div>
+                        <span class="eyebrow">Síntese do período</span>
+                        <h2>Resumo Executivo</h2>
                     </div>
 
-                    <div class="chart-wrapper">
-                        <canvas id="graficoResultados"></canvas>
-                    </div>
-                </article>
+                    <p>
+                        Durante os meses de maio e junho de 2026, foram realizadas
+                        ações comerciais voltadas ao fortalecimento da marca Tecfil.
+                        O período contemplou visitas técnicas, pesquisas, campanhas,
+                        prospecção de novos clientes e capacitações, alcançando
+                        15.631 peças monitoradas entre distribuidores e varejo.
+                    </p>
 
+                    <div class="summary-details">
+                        <div class="summary-item">
+                            <span>Distribuidores</span>
+                            <strong>10.504 peças</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Varejo</span>
+                            <strong>5.127 peças</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Participantes em capacitações</span>
+                            <strong>Aproximadamente 80</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Fonte dos dados</span>
+                            <strong>Sistema Auvo</strong>
+                        </div>
+                    </div>
+                </section>
             </section>
 
-            <section class="executive-summary">
-                <div>
-                    <span class="eyebrow">Síntese do período</span>
-                    <h2>Resumo Executivo</h2>
+            <!-- 2. VISITAS -->
+            <section class="page" id="visitas" data-title="Visitas">
+                <header class="topbar">
+                    <div class="topbar-title">
+                        <span class="eyebrow">Atuação em campo</span>
+                        <h1>Visitas</h1>
+                        <p>Acompanhamento das visitas realizadas no período.</p>
+                    </div>
+
+                    <div class="topbar-info">
+                        <div class="info-item">
+                            <span>Período analisado</span>
+                            <strong>Maio • Junho | 2026</strong>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="kpi-grid page-kpis">
+                    <article class="kpi-card kpi-destaque">
+                        <div class="kpi-icon">👣</div>
+                        <div>
+                            <h3>Total de Visitas</h3>
+                            <strong class="kpi-number" data-target="152">0</strong>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="charts-grid charts-grid-single">
+                    <article class="chart-card">
+                        <div class="card-header">
+                            <span class="eyebrow">Evolução mensal</span>
+                            <h2>Visitas realizadas por mês</h2>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="graficoVisitasMensais"></canvas>
+                        </div>
+                    </article>
+                </section>
+            </section>
+
+            <!-- 3. PESQUISAS -->
+            <section class="page" id="pesquisas" data-title="Pesquisas">
+                <header class="topbar">
+                    <div class="topbar-title">
+                        <span class="eyebrow">Inteligência de mercado</span>
+                        <h1>Pesquisas</h1>
+                        <p>Indicadores das pesquisas e perfil dos estabelecimentos.</p>
+                    </div>
+
+                    <div class="topbar-info">
+                        <div class="info-item">
+                            <span>Período analisado</span>
+                            <strong>Maio • Junho | 2026</strong>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="kpi-grid page-kpis">
+                    <article class="kpi-card kpi-destaque">
+                        <div class="kpi-icon">📋</div>
+                        <div>
+                            <h3>Total de Pesquisas</h3>
+                            <strong class="kpi-number" data-target="23">0</strong>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="charts-grid">
+                    <article class="chart-card">
+                        <div class="card-header">
+                            <span class="eyebrow">Participação</span>
+                            <h2>Marcas identificadas nas pesquisas</h2>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="graficoMarcasPesquisa"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="chart-card">
+                        <div class="card-header">
+                            <span class="eyebrow">Perfil</span>
+                            <h2>Tipo de estabelecimento</h2>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="graficoTipoEstabelecimento"></canvas>
+                        </div>
+                    </article>
+                </section>
+            </section>
+
+            <!-- 4. CAMPANHAS -->
+            <section class="page" id="campanhas" data-title="Campanhas">
+                <header class="topbar">
+                    <div class="topbar-title">
+                        <span class="eyebrow">Principal resultado da apresentação</span>
+                        <h1>Campanhas</h1>
+                        <p>Resultados e impacto das ações promocionais.</p>
+                    </div>
+
+                    <div class="topbar-info">
+                        <div class="info-item">
+                            <span>Período analisado</span>
+                            <strong>Maio • Junho | 2026</strong>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="campaign-highlight">
+                    <article class="kpi-card kpi-hero">
+                        <div class="kpi-icon">📦</div>
+                        <div>
+                            <h3>Total de Peças Alcançadas</h3>
+                            <strong class="kpi-number" data-target="15631">0</strong>
+                            <span>peças</span>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="kpi-grid campaign-kpis">
+                    <article class="kpi-card">
+                        <div class="kpi-icon">📣</div>
+                        <div>
+                            <h3>Campanhas Realizadas</h3>
+                            <strong class="kpi-number" data-target="41">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card">
+                        <div class="kpi-icon">🏆</div>
+                        <div>
+                            <h3>Rodadas de Prêmios</h3>
+                            <strong id="totalRodadasPremio">—</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card">
+                        <div class="kpi-icon">🧾</div>
+                        <div>
+                            <h3>Campanhas por Notas</h3>
+                            <strong id="totalCampanhasNotas">—</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card">
+                        <div class="kpi-icon">🏪</div>
+                        <div>
+                            <h3>Distribuidores</h3>
+                            <strong id="totalCampanhasDistribuidores">—</strong>
+                        </div>
+                    </article>
+
+                    <article class="kpi-card">
+                        <div class="kpi-icon">🛒</div>
+                        <div>
+                            <h3>Varejo</h3>
+                            <strong id="totalCampanhasVarejo">—</strong>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="charts-grid">
+                    <article class="chart-card">
+                        <div class="card-header">
+                            <span class="eyebrow">Distribuição</span>
+                            <h2>Campanhas por modalidade</h2>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="graficoModalidadesCampanha"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="chart-card">
+                        <div class="card-header">
+                            <span class="eyebrow">Canais</span>
+                            <h2>Peças alcançadas por canal</h2>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="graficoPecasCampanhas"></canvas>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="charts-grid charts-grid-single">
+                    <article class="chart-card">
+                        <div class="card-header">
+                            <span class="eyebrow">Destaques</span>
+                            <h2>Ranking de desempenho das campanhas</h2>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="graficoRankingCampanhas"></canvas>
+                        </div>
+                    </article>
+                </section>
+            </section>
+
+            <!-- 5. GALERIA -->
+            <section class="page" id="galeria" data-title="Galeria de Fotos">
+                <header class="topbar">
+                    <div class="topbar-title">
+                        <span class="eyebrow">Evidências em campo</span>
+                        <h1>Galeria de Fotos</h1>
+                        <p>Registro visual das atividades realizadas.</p>
+                    </div>
+
+                    <div class="topbar-info">
+                        <div class="info-item">
+                            <span>Período analisado</span>
+                            <strong>Maio • Junho | 2026</strong>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="gallery-filters" role="group" aria-label="Filtros da galeria">
+                    <button class="gallery-filter ativo" type="button" data-filter="todas">Todas</button>
+                    <button class="gallery-filter" type="button" data-filter="visitas">Visitas</button>
+                    <button class="gallery-filter" type="button" data-filter="pesquisas">Pesquisas</button>
+                    <button class="gallery-filter" type="button" data-filter="campanhas">Campanhas</button>
+                    <button class="gallery-filter" type="button" data-filter="treinamentos">Treinamentos</button>
                 </div>
 
-                <p>
-                    Durante os meses de maio e junho de 2026, foram realizadas
-                    ações comerciais voltadas ao fortalecimento da marca Tecfil.
-                    O período contemplou visitas técnicas, pesquisas, campanhas,
-                    prospecção de novos clientes e capacitações, alcançando
-                    15.631 peças monitoradas entre distribuidores e varejo.
-                </p>
-
-                <div class="summary-details">
-
-                    <div class="summary-item">
-                        <span>Distribuidores</span>
-                        <strong>10.504 peças</strong>
-                    </div>
-
-                    <div class="summary-item">
-                        <span>Varejo</span>
-                        <strong>5.127 peças</strong>
-                    </div>
-
-                    <div class="summary-item">
-                        <span>Participantes em capacitações</span>
-                        <strong>Aproximadamente 80</strong>
-                    </div>
-
-                    <div class="summary-item">
-                        <span>Fonte dos dados</span>
-                        <strong>Sistema Auvo</strong>
-                    </div>
-
-                </div>
+                <section class="gallery-grid" id="galeriaFotos">
+                    <article class="gallery-placeholder">
+                        <div class="gallery-placeholder-icon">📷</div>
+                        <h2>Galeria preparada</h2>
+                        <p>As fotos serão adicionadas aqui e poderão ser filtradas por categoria.</p>
+                    </article>
+                </section>
             </section>
 
             <footer class="dashboard-footer">
                 <span>Dashboard de Performance Comercial • GSP | 2026</span>
                 <span>Geysa Sechi Poisl</span>
             </footer>
-
         </section>
-
     </main>
-
 </div>
 
 <script src="js/script.js"></script>
-
 </body>
 </html>
