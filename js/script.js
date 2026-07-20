@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     backgroundColor: [
                         "#1d4f91",
-                        "#2ea67c",
+                        "#f3f706",
                         "#f59b45",
                         "#92e8da"
                     ],
