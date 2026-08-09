@@ -10,7 +10,49 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuLinks = document.querySelectorAll(".menu a[data-page]");
     const pages = document.querySelectorAll(".page");
     const chartInstances = {};
+let dadosExcel = null;
 
+async function carregarPlanilha() {
+    try {
+        const response = await fetch("Base_Dados_Dashboard_GSP_2.0.xlsx", {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("Não foi possível carregar a planilha.");
+        }
+
+        const arquivo = await response.arrayBuffer();
+
+        const workbook = XLSX.read(arquivo, {
+            type: "array"
+        });
+
+        dadosExcel = {};
+
+        workbook.SheetNames.forEach((nomeAba) => {
+            const planilha = workbook.Sheets[nomeAba];
+
+            dadosExcel[nomeAba] = XLSX.utils.sheet_to_json(
+                planilha,
+                {
+                    range: 2,
+                    defval: null
+                }
+            );
+        });
+
+        console.log("Planilha carregada com sucesso:", dadosExcel);
+
+        return dadosExcel;
+
+    } catch (erro) {
+        console.error("Erro ao carregar a planilha:", erro);
+        return null;
+    }
+}
+
+carregarPlanilha();
     const formatNumber = (value) =>
         new Intl.NumberFormat("pt-BR").format(value);
 
