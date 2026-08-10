@@ -513,26 +513,16 @@ carregarPlanilha();
             type: "bar",
 
             data: {
-                labels: [
-                    "WEGA",
-                    "TECFIL",
-                    "VOX",
-                    "MANN",
-                    "MAHLE",
-                    "HENGST"
-                ],
+             labels: dadosExcel.Pesquisas
+    .filter((linha) => linha.categoria === "MARCA")
+    .map((linha) => linha.item),
 
                 datasets: [{
                     label: "Participação (%)",
 
-                    data: [
-                        43.15,
-                        32.36,
-                        14.52,
-                        5.39,
-                        3.32,
-                        1.24
-                    ],
+data: dadosExcel.Pesquisas
+    .filter((linha) => linha.categoria === "MARCA")
+    .map((linha) => Number(linha.quantidade)),
 
                     backgroundColor: [
                         "#6b7280",
