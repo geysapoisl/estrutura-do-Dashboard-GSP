@@ -307,7 +307,7 @@ carregarPlanilha();
                     label: "Visitas",
 
                     data: [
-                        89,
+                        90,
                         63
                     ],
 
