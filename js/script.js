@@ -61,10 +61,15 @@ function aplicarVisitas(periodoId) {
         return;
     }
 
-    const indicadores = {
-        ".kpi-visitas .kpi-number": dados.total_visitas,
-        ".kpi-distribuidores .kpi-number": dados.distribuidores,
-        ".kpi-varejo .kpi-number": dados.varejo
+   const dadosGerais = dadosExcel?.Visao_Geral?.find(
+    (linha) => linha.periodo_id === periodoId
+);
+
+const indicadores = {
+    ".kpi-visitas .kpi-number": dados.total_visitas,
+    ".kpi-distribuidores .kpi-number": dados.distribuidores,
+    ".kpi-varejo .kpi-number": dados.varejo,
+    ".kpi-novos-clientes .kpi-number": dadosGerais?.novos_clientes
     };
 
     Object.entries(indicadores).forEach(([seletor, valor]) => {
