@@ -52,6 +52,10 @@ function aplicarVisaoGeral(periodoId) {
 
 carregarPlanilha().then(() => {
     aplicarVisaoGeral("2026-05-06");
+
+    if (window.location.hash === "#visitas") {
+        renderVisitsCharts();
+    }
 });
    async function carregarPlanilha() {
     try {
@@ -306,9 +310,15 @@ carregarPlanilha();
                 datasets: [{
                     label: "Visitas",
 
-                    data: [
-                        90,
-                        63
+                  data: [
+    Number(dadosExcel?.Visitas?.find(
+        (linha) => linha.periodo_id === "2026-05-06"
+    )?.visitas_maio || 0),
+
+    Number(dadosExcel?.Visitas?.find(
+        (linha) => linha.periodo_id === "2026-05-06"
+    )?.visitas_junho || 0)
+],
                     ],
 
                     backgroundColor: [
