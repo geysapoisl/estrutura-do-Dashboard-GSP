@@ -641,20 +641,14 @@ data: dadosExcel.Pesquisas
             type: "doughnut",
 
             data: {
-                labels: [
-                    "Posto de Combustível",
-                    "Centro Automotivo",
-                    "Oficina Mecânica",
-                    "Autopeças"
-                ],
+                labels: dadosExcel.Pesquisas
+  .filter((linha) => linha.categoria === "TIPO_ESTABELECIMENTO")
+  .map((linha) => linha.item),
 
                 datasets: [{
-                    data: [
-                        11,
-                        8,
-                        3,
-                        2
-                    ],
+                   data: dadosExcel.Pesquisas
+  .filter((linha) => linha.categoria === "TIPO_ESTABELECIMENTO")
+  .map((linha) => Number(linha.quantidade)),
 
                     backgroundColor: [
                         "#1d4f91",
