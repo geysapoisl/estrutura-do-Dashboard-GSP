@@ -71,7 +71,23 @@ const indicadores = {
     ".kpi-varejo .kpi-number": dados.varejo,
     ".kpi-novos-clientes .kpi-number": dadosGerais?.novos_clientes
     };
+const detalheDistribuidores = document.querySelector(
+    "#visitas .kpi-distribuidores .kpi-detail"
+);
 
+if (detalheDistribuidores) {
+    detalheDistribuidores.textContent =
+        `Maio: ${dados.distribuidores_maio} | Junho: ${dados.distribuidores_junho}`;
+}
+
+const detalheVarejo = document.querySelector(
+    "#visitas .kpi-varejo .kpi-detail"
+);
+
+if (detalheVarejo) {
+    detalheVarejo.textContent =
+        `Maio: ${dados.varejo_maio} | Junho: ${dados.varejo_junho}`;
+}
     Object.entries(indicadores).forEach(([seletor, valor]) => {
         const elemento = document.querySelector(
             `#visitas ${seletor}`
