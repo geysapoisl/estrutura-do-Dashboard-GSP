@@ -107,6 +107,12 @@ if (detalheVarejo) {
 
    function aplicarPesquisas(periodoId) {
   if (!dadosExcel || !dadosExcel.Pesquisas) return;
+      const dadosTecfil = dadosExcel.Pesquisas.find(
+  (linha) =>
+    linha.periodo_id === periodoId &&
+    linha.categoria === "KPI" &&
+    linha.item === "PARTICIPACAO_TECFIL"
+);
 
   const dados = dadosExcel.Pesquisas.find(
     (linha) => linha.periodo_id === periodoId && linha.categoria === "TOTAL"
@@ -126,7 +132,17 @@ if (detalheVarejo) {
     totalPesquisas.dataset.animated = "false";
     totalPesquisas.textContent = "0";
   }
+const participacaoTecfil = document.querySelector(
+  "#pesquisas .kpi-tecfil strong"
+);
 
+if (participacaoTecfil && dadosTecfil?.quantidade != null) {
+  participacaoTecfil.textContent =
+    `${Number(dadosTecfil.quantidade).toLocaleString("pt-BR", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    })}%`;
+}
   animateNumbers(
     document.getElementById("pesquisas")
   );
