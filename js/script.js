@@ -319,7 +319,6 @@ carregarPlanilha();
         (linha) => linha.periodo_id === "2026-05-06"
     )?.visitas_junho || 0)
 ],
-                    ],
 
                     backgroundColor: [
                         "#3b82f6",
