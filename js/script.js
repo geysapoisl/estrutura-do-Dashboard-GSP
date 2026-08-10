@@ -12,7 +12,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const chartInstances = {};
 let dadosExcel = null;
 
-async function carregarPlanilha() {
+function aplicarVisaoGeral(periodoId) {
+    if (!dadosExcel || !dadosExcel.Visao_Geral) return;
+
+    const dados = dadosExcel.Visao_Geral.find(
+        (linha) => linha.periodo_id === periodoId
+    );
+
+    if (!dados) {
+        console.warn("Período não encontrado:", periodoId);
+        return;
+    }
+
+    const indicadores = {
+        ".kpi-visitas .kpi-number": dados.visitas,
+        ".kpi-pesquisas .kpi-number": dados.pesquisas,
+        ".kpi-campanhas .kpi-number": dados.campanhas,
+        ".kpi-pecas .kpi-number": dados.pecas_alcancadas,
+        ".kpi-clientes .kpi-number": dados.novos_clientes,
+        ".kpi-capacitacoes .kpi-number": dados.capacitacoes
+    };
+
+    Object.entries(indicadores).forEach(([seletor, valor]) => {
+        const elemento = document.querySelector(
+            `#visao-geral ${seletor}`
+        );
+
+        if (!elemento || valor == null) return;
+
+        elemento.dataset.target = valor;
+        elemento.dataset.animated = "false";
+        elemento.textContent = "0";
+    });
+
+    animateNumbers(
+        document.getElementById("visao-geral")
+    );
+}
+
+carregarPlanilha().then(() => {
+    aplicarVisaoGeral("2026-05-06");
+});
+   async function carregarPlanilha() {
     try {
         const response = await fetch("Base_Dados_Dashboard_GSP_2.0.xlsx", {
             cache: "no-store"
