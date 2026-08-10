@@ -319,7 +319,6 @@ carregarPlanilha();
         (linha) => linha.periodo_id === "2026-05-06"
     )?.visitas_junho || 0)
 ],
-
                     backgroundColor: [
                         "#3b82f6",
                         "#1d4f91"
@@ -330,7 +329,6 @@ carregarPlanilha();
                     maxBarThickness: 90
                 }]
             },
-
             plugins: visitsPlugins,
 
             options: {
