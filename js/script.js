@@ -114,7 +114,13 @@ if (detalheVarejo) {
     linha.categoria === "KPI" &&
     linha.item === "PARTICIPACAO_TECFIL"
 );
-console.log("DADOS TECFIL:", dadosTecfil);
+      const dadosEstabelecimentos = dadosExcel.Pesquisas.find(
+  (linha) =>
+    linha.periodo_id === periodoId &&
+    linha.categoria === "KPI" &&
+    linha.item === "ESTABELECIMENTOS_PESQUISADOS"
+);
+console.log("DADOS ESTABELECIMENTOS:", dadosEstabelecimentos);
   const dados = dadosExcel.Pesquisas.find(
     (linha) => linha.periodo_id === periodoId && linha.categoria === "TOTAL"
   );
