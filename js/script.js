@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const chartInstances = {};
 let dadosExcel = null;
 
-function aplicarVisaoGeral(periodoId) {
+function aplicarVisaoGeral(periodoId) { 
     if (!dadosExcel || !dadosExcel.Visao_Geral) return;
 
     const dados = dadosExcel.Visao_Geral.find(
@@ -49,10 +49,47 @@ function aplicarVisaoGeral(periodoId) {
         document.getElementById("visao-geral")
     );
 }
+function aplicarVisitas(periodoId) {
+    if (!dadosExcel || !dadosExcel.Visitas) return;
 
+    const dados = dadosExcel.Visitas.find(
+        (linha) => linha.periodo_id === periodoId
+    );
+
+    if (!dados) {
+        console.warn("Dados de Visitas não encontrados:", periodoId);
+        return;
+    }
+
+    const indicadores = {
+        ".kpi-visitas .kpi-number": dados.total_visitas,
+        ".kpi-distribuidores .kpi-number": dados.distribuidores,
+        ".kpi-varejo .kpi-number": dados.varejo
+    };
+
+    Object.entries(indicadores).forEach(([seletor, valor]) => {
+        const elemento = document.querySelector(
+            `#visitas ${seletor}`
+        );
+
+        if (!elemento || valor == null) return;
+
+        elemento.dataset.target = valor;
+        elemento.dataset.animated = "false";
+        elemento.textContent = "0";
+    });
+
+    animateNumbers(
+        document.getElementById("visitas")
+    );
+}
+function atualizarVisitas() {
+  aplicarVisitas("2026-05-06");
+  renderVisitsCharts();
+}
 carregarPlanilha().then(() => {
     aplicarVisaoGeral("2026-05-06");
-
+atualizarVisitas();
     if (window.location.hash === "#visitas") {
         renderVisitsCharts();
     }
