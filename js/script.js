@@ -108,12 +108,13 @@ if (detalheVarejo) {
    function aplicarPesquisas(periodoId) {
   if (!dadosExcel || !dadosExcel.Pesquisas) return;
       const dadosTecfil = dadosExcel.Pesquisas.find(
-  (linha) =>
+ 
+         (linha) =>
     linha.periodo_id === periodoId &&
     linha.categoria === "KPI" &&
     linha.item === "PARTICIPACAO_TECFIL"
 );
-
+console.log("DADOS TECFIL:", dadosTecfil);
   const dados = dadosExcel.Pesquisas.find(
     (linha) => linha.periodo_id === periodoId && linha.categoria === "TOTAL"
   );
