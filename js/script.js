@@ -104,6 +104,33 @@ if (detalheVarejo) {
         document.getElementById("visitas")
     );
 }
+
+   function aplicarPesquisas(periodoId) {
+  if (!dadosExcel || !dadosExcel.Pesquisas) return;
+
+  const dados = dadosExcel.Pesquisas.find(
+    (linha) => linha.periodo_id === periodoId && linha.categoria === "TOTAL"
+  );
+
+  if (!dados) {
+    console.warn("Dados de Pesquisas não encontrados:", periodoId);
+    return;
+  }
+
+  const totalPesquisas = document.querySelector(
+    "#pesquisas .kpi-pesquisas .kpi-number"
+  );
+
+  if (totalPesquisas && dados.total_pesquisas != null) {
+    totalPesquisas.dataset.target = dados.total_pesquisas;
+    totalPesquisas.dataset.animated = "false";
+    totalPesquisas.textContent = "0";
+  }
+
+  animateNumbers(
+    document.getElementById("pesquisas")
+  );
+}
 function atualizarVisitas() {
   aplicarVisitas("2026-05-06");
   renderVisitsCharts();
@@ -111,6 +138,7 @@ function atualizarVisitas() {
 carregarPlanilha().then(() => {
     aplicarVisaoGeral("2026-05-06");
 atualizarVisitas();
+   aplicarPesquisas("2026-05-06");
     if (window.location.hash === "#visitas") {
         renderVisitsCharts();
     }
