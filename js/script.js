@@ -422,10 +422,15 @@ carregarPlanilha();
                 ],
 
                 datasets: [{
-                    data: [
-                        38,
-                        114
-                    ],
+                   data: [
+    Number(dadosExcel?.Visitas?.find(
+        (linha) => linha.periodo_id === "2026-05-06"
+    )?.distribuidores || 0),
+
+    Number(dadosExcel?.Visitas?.find(
+        (linha) => linha.periodo_id === "2026-05-06"
+    )?.varejo || 0)
+],
 
                     backgroundColor: [
                         "#f59e0b",
